@@ -13,7 +13,7 @@ export default function Stats() {
               key={index}
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.5 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="text-center group"
             >

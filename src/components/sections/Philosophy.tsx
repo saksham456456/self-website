@@ -24,7 +24,7 @@ export default function Philosophy() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.8 }}
               className="max-w-4xl w-full glass-panel p-12 rounded-2xl relative group hover:shadow-[0_0_50px_rgba(57,167,255,0.1)] transition-shadow duration-500"
             >

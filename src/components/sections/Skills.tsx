@@ -24,7 +24,7 @@ export default function Skills() {
             <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.5 }}
                 className="text-4xl md:text-5xl font-bold font-space mb-4"
             >
                 <span className="text-neon-blue">02.</span> SKILLS & TOOLS
@@ -38,7 +38,7 @@ export default function Skills() {
               key={skill.name}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.1 }}
               transition={{ delay: index * 0.05, duration: 0.5 }}
               whileHover={{
                 scale: 1.05,
@@ -66,7 +66,7 @@ export default function Skills() {
                         key={tool}
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false, amount: 0.1 }}
                         transition={{ delay: index * 0.1 }}
                         className="px-6 py-3 rounded-full border border-white/10 bg-white/5 text-sm font-mono hover:bg-neon-blue/20 hover:border-neon-blue transition-colors cursor-default"
                     >

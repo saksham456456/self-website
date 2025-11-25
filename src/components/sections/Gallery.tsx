@@ -29,7 +29,7 @@ export default function Gallery() {
               key={item.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
               className={`relative rounded-xl overflow-hidden break-inside-avoid ${item.size} ${item.color} group`}
             >

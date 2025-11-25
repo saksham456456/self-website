@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { personalInfo } from "@/config";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,8 +22,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Chen | Futuristic Portfolio",
-  description: "AI-Driven Creator • Tech Innovator • Digital Architect",
+  title: `${personalInfo.name} | Futuristic Portfolio`,
+  description: personalInfo.role,
 };
 
 export default function RootLayout({

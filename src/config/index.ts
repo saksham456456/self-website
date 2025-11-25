@@ -63,7 +63,7 @@ export const projects = [
     title: "Cognito AI",
     description: "An AI developed from scratch trained with several LLM models.",
     tech: ["Custom AI", "LLMs", "Encryption"],
-    image: "/placeholder-project-1.jpg",
+    image: "/cognito-logo.png",
     link: "#",
     details: {
       problem: "The need for a secure, private, and versatile AI system.",

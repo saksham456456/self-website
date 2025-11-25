@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { X } from "lucide-react";
 
@@ -34,12 +35,22 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
             <div className="bg-[#0f1623] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 shadow-2xl pointer-events-auto relative flex flex-col">
               {/* Header Image Placeholder */}
               <div className="h-64 md:h-80 w-full bg-gradient-to-br from-gray-800 to-gray-900 relative">
-                <div className="absolute inset-0 flex items-center justify-center text-white/10 text-6xl font-bold font-space uppercase">
-                    {project.title}
-                </div>
+                {project.image && !project.image.includes("placeholder") ? (
+                    <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover opacity-80"
+                    />
+                ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-white/10 text-6xl font-bold font-space uppercase">
+                        {project.title}
+                    </div>
+                )}
+
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 p-2 bg-black/50 rounded-full hover:bg-neon-blue hover:text-black transition-colors"
+                    className="absolute top-4 right-4 z-10 p-2 bg-black/50 rounded-full hover:bg-neon-blue hover:text-black transition-colors"
                 >
                     <X size={24} />
                 </button>

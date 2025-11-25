@@ -71,7 +71,7 @@ export default function Contact() {
           >
             <div className="space-y-6">
                 <p className="text-xl text-gray-300">
-                    Ready to build the future? Reach out and let's discuss how we can create something extraordinary together.
+                    Ready to build the future? Reach out and let&apos;s discuss how we can create something extraordinary together.
                 </p>
 
                 <div className="flex items-center gap-4">

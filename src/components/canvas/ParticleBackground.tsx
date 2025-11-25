@@ -5,6 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Particles(props: any) {
   const ref = useRef<THREE.Points>(null);
 
@@ -13,8 +14,7 @@ function Particles(props: any) {
   const positions = useMemo(() => {
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const theta = THREE.MathUtils.randFloatSpread(360);
-      const phi = THREE.MathUtils.randFloatSpread(360);
+      // Removed unused theta/phi
 
       const x = THREE.MathUtils.randFloatSpread(20);
       const y = THREE.MathUtils.randFloatSpread(20);

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { skills } from "@/config";
-import { cn } from "@/lib/utils";
 
 // Helper to render icons (placeholder for now)
 const SkillIcon = ({ name }: { name: string }) => {

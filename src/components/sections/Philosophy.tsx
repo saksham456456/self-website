@@ -32,7 +32,7 @@ export default function Philosophy() {
                <Quote className="absolute bottom-8 right-8 text-neon-blue/20 w-16 h-16" />
 
               <blockquote className="text-3xl md:text-5xl font-bold font-space text-center text-white leading-tight py-8 relative z-10">
-                "{philosophy.quote}"
+                &quot;{philosophy.quote}&quot;
               </blockquote>
 
               <div className="text-center mt-8">

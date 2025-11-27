@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-// Placeholder images - using simple colored divs for now
 const galleryItems = [
-  { id: 1, size: "h-64", color: "bg-blue-900" },
-  { id: 2, size: "h-96", color: "bg-purple-900" },
-  { id: 3, size: "h-64", color: "bg-indigo-900" },
-  { id: 4, size: "h-80", color: "bg-cyan-900" },
-  { id: 5, size: "h-64", color: "bg-sky-900" },
-  { id: 6, size: "h-72", color: "bg-violet-900" },
+  { id: 1, size: "h-64", src: "/gallery/gallery-1.jpg", alt: "AI generated abstract art" },
+  { id: 2, size: "h-96", src: "/gallery/gallery-2.png", alt: "Photogram logo design" },
+  { id: 3, size: "h-64", src: "/gallery/gallery-3.jpg", alt: "Digital workspace setup" },
+  { id: 4, size: "h-80", src: "/gallery/gallery-4.jpg", alt: "Code visualization on screen" },
+  { id: 5, size: "h-64", src: "/gallery/gallery-5.jpg", alt: "Tech conference setup" },
+  { id: 6, size: "h-72", src: "/gallery/gallery-6.jpg", alt: "Abstract blue wave patterns" },
 ];
 
 export default function Gallery() {
@@ -31,15 +31,19 @@ export default function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className={`relative rounded-xl overflow-hidden break-inside-avoid ${item.size} ${item.color} group`}
+              className={`relative rounded-xl overflow-hidden break-inside-avoid ${item.size} bg-gray-900 group`}
             >
-                {/* Image Placeholder */}
-                <div className="absolute inset-0 bg-white/5 group-hover:bg-transparent transition-colors duration-500"></div>
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
 
                 {/* Content Overlay */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/80 to-transparent">
-                    <span className="text-neon-blue font-mono text-sm">Visual Experiment #{item.id}</span>
-                    <h3 className="text-xl font-bold font-space">Generative Art</h3>
+                <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                    <span className="text-neon-blue font-mono text-sm">Gallery Item #{item.id}</span>
+                    <h3 className="text-xl font-bold font-space">{item.alt}</h3>
                 </div>
 
                 {/* Border Glow */}

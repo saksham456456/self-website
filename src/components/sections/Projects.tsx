@@ -3,13 +3,36 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { projects } from "@/config";
 import { Button } from "@/components/ui/Button";
 import ProjectModal from "./ProjectModal";
 
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+  tech: string[];
+  image: string;
+  link: string;
+  details: {
+    problem: string;
+    solution: string;
+    features: string[];
+  };
+};
+
 export default function Projects() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const router = useRouter();
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const handleProjectClick = (project: Project) => {
+    if (project.id === 1) {
+      router.push("/projects/cognito-ai");
+    } else {
+      setSelectedProject(project);
+    }
+  };
 
   return (
     <section id="projects" className="py-24 bg-[#080c17]">
@@ -33,7 +56,7 @@ export default function Projects() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="group relative h-[400px] rounded-xl overflow-hidden cursor-pointer"
-              onClick={() => setSelectedProject(project)}
+              onClick={() => handleProjectClick(project)}
             >
                 {/* Background Image / Placeholder */}
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black group-hover:scale-105 transition-transform duration-700 ease-out">

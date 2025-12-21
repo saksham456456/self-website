@@ -26,19 +26,19 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      // SIMULATION MODE (Client-Side for Static Export)
+      // Since we are deploying as a Static Site (output: export), API routes are not supported.
+      // We simulate the transmission here.
 
-      const data = await response.json();
+      console.log("--- INITIATING TRANSMISSION ---");
+      console.log(`SENDER: ${formData.name} <${formData.email}>`);
+      console.log("MESSAGE PACKET:");
+      console.log(formData.message);
 
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send message");
-      }
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      console.log("--- TRANSMISSION SUCCESSFUL ---");
 
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });

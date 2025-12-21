@@ -1,18 +1,46 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { projects } from "@/config";
-import { Button } from "@/components/ui/Button";
 import ProjectModal from "./ProjectModal";
+import ProjectCard from "@/components/projects/ProjectCard";
+
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+  tech: string[];
+  image: string;
+  link: string;
+  details: {
+    problem: string;
+    solution: string;
+    features: string[];
+  };
+};
 
 export default function Projects() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const router = useRouter();
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const handleProjectClick = (project: Project) => {
+    if (project.id === 1) { // Cognito AI
+      setIsTransitioning(true);
+      // Wait for animation to finish before routing
+      // The animation duration is around 1.2s total (0.6s flip + 0.6s slide)
+      setTimeout(() => {
+        router.push("/projects/cognito-ai");
+      }, 1200);
+    } else {
+      setSelectedProject(project);
+    }
+  };
 
   return (
-    <section id="projects" className="py-24 bg-[#080c17]">
+    <section id="projects" className="py-24 bg-[#080c17] relative">
       <div className="container mx-auto px-6">
         <div className="mb-16 flex flex-col items-center">
             <h2 className="text-4xl md:text-5xl font-bold font-space mb-4 text-center">
@@ -32,57 +60,11 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="group relative h-[400px] rounded-xl overflow-hidden cursor-pointer"
-              onClick={() => setSelectedProject(project)}
             >
-                {/* Background Image / Placeholder */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black group-hover:scale-105 transition-transform duration-700 ease-out">
-                    {project.image && !project.image.includes("placeholder") ? (
-                         <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            className="object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-300"
-                         />
-                    ) : (
-                        <>
-                            {/* Placeholder content for visual interest */}
-                            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900 to-transparent"></div>
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-9xl font-bold text-white/5 pointer-events-none">
-                                {index + 1}
-                            </div>
-                        </>
-                    )}
-                </div>
-
-                {/* Overlay Content */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-90 transition-opacity duration-300 flex flex-col justify-end p-8">
-                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 className="text-3xl font-bold font-space text-white mb-2 group-hover:text-neon-blue transition-colors">
-                            {project.title}
-                        </h3>
-                        <p className="text-gray-300 line-clamp-2 mb-4 group-hover:text-white transition-colors">
-                            {project.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            {project.tech.map((t: string) => (
-                                <span key={t} className="text-xs font-mono px-2 py-1 border border-white/20 rounded text-gray-400">
-                                    {t}
-                                </span>
-                            ))}
-                        </div>
-
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Button variant="outline" size="sm" className="w-full">
-                                View Case Study
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Holographic Border Effect */}
-                <div className="absolute inset-0 border border-white/10 rounded-xl group-hover:border-neon-blue/50 transition-colors duration-300 pointer-events-none"></div>
+              <ProjectCard
+                project={project}
+                onClick={() => handleProjectClick(project as Project)}
+              />
             </motion.div>
           ))}
         </div>
@@ -93,6 +75,57 @@ export default function Projects() {
         onClose={() => setSelectedProject(null)}
         project={selectedProject}
       />
+
+      {/* 3D ENVELOPE TRANSITION OVERLAY */}
+      <AnimatePresence>
+        {isTransitioning && (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none perspective-[2000px]"
+            initial={{ backgroundColor: "rgba(10, 15, 28, 0)" }}
+            animate={{ backgroundColor: "rgba(10, 15, 28, 1)" }}
+            transition={{ duration: 0.3 }}
+          >
+             <div className="relative w-[300px] md:w-[400px] h-[200px] md:h-[300px] transform-style-3d">
+
+                {/* The "Paper" (Content) that slides out */}
+                <motion.div
+                    className="absolute inset-0 bg-white shadow-2xl rounded-lg flex items-center justify-center overflow-hidden z-0"
+                    initial={{ y: 0, scale: 0.8, opacity: 0 }}
+                    animate={{ y: -300, scale: 3, opacity: 1 }}
+                    transition={{ delay: 0.4, duration: 0.8, ease: "circOut" }}
+                >
+                    <div className="w-full h-full bg-[#0a0f1c] p-8 border border-neon-blue/20 flex flex-col items-center justify-center">
+                        <h1 className="text-4xl md:text-6xl font-bold font-space text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-neon-blue to-white">
+                          COGNITO AI
+                        </h1>
+                        <div className="text-neon-blue font-mono animate-pulse">ACCESSING SYSTEM...</div>
+                    </div>
+                </motion.div>
+
+                {/* The "Envelope Body" (Bottom Half) */}
+                <div className="absolute inset-0 bg-[#0f1623] border border-neon-blue/30 rounded-b-xl z-10 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div className="text-neon-blue/20 font-mono text-xs">CONFIDENTIAL</div>
+                </div>
+
+                {/* The "Envelope Flap" (Top Half) */}
+                <motion.div
+                    className="absolute top-0 left-0 w-full h-1/2 bg-[#1a2333] border-t border-l border-r border-neon-blue/30 rounded-t-xl z-20 origin-bottom shadow-lg"
+                    initial={{ rotateX: 0 }}
+                    animate={{ rotateX: 180 }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    style={{ transformStyle: "preserve-3d" }}
+                >
+                     <div className="absolute inset-0 flex items-center justify-center backface-hidden">
+                        <div className="w-8 h-8 rounded-full bg-neon-blue/20 border border-neon-blue flex items-center justify-center">
+                            <div className="w-4 h-4 rounded-full bg-neon-blue animate-pulse"></div>
+                        </div>
+                     </div>
+                </motion.div>
+             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
